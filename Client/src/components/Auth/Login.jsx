@@ -13,7 +13,8 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: '80%',
+    maxWidth: 400 ,
     bgcolor: 'background.paper',
     outline: 'none',
     boxShadow: 24,
@@ -31,11 +32,9 @@ const Login = ({ handleClose, open, handleRegisterOpen }) => {
             email: data.get("email"),
             password: data.get("password")
         };
-
-        dispatch(login(userData));
-        handleClose();
-        // window.location.reload();
-        
+        dispatch(login(userData)).then(() => {
+            window.location.reload();
+          });
     };
 
     return (
@@ -61,6 +60,7 @@ const Login = ({ handleClose, open, handleRegisterOpen }) => {
                                 fullWidth
                                 autoComplete="email"
                                 variant="outlined"
+                                defaultValue="demo@gmail.com"
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -73,6 +73,7 @@ const Login = ({ handleClose, open, handleRegisterOpen }) => {
                                 fullWidth
                                 autoComplete="current-password"
                                 variant="outlined"
+                                 defaultValue="12345678"
                             />
                         </Grid>
                         <Grid item xs={12}>

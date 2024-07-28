@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { cancelOrder, getOrderById } from '../../Redux/Orders/Action';
 import { useParams, useNavigate } from 'react-router-dom';
 import moment from 'moment';
+import {toast, ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const OrderDetails = () => {
   const { orderId } = useParams();
@@ -16,8 +18,11 @@ const OrderDetails = () => {
   }, [dispatch, orderId,order?.orderStatus]);
 
   const handleCancelOrder = () => {
-    dispatch(cancelOrder(orderId));
-    console.log("Cancel request dispatched");
+    dispatch(cancelOrder(orderId)).then(()=>{
+      dispatch(getOrderById(orderId))
+    }).then(()=>{
+      toast.success(`Your Order has been Cancelled Successfully`,{position:'top-center',autoClose:2000})
+    })
   };
 
   // Define order statuses dynamically
@@ -101,6 +106,7 @@ const OrderDetails = () => {
           </div>
         ):("")}
       </div>
+      <ToastContainer/>
     </div>
   );
 };

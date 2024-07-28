@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getOrderById, placeOrder } from '../../Redux/Orders/Action'; // Adjust the path as necessary
+import { getOrderById, getOrderHistory, placeOrder } from '../../Redux/Orders/Action'; // Adjust the path as necessary
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const PaymentPage = () => {
     const dispatch = useDispatch();
@@ -10,7 +12,7 @@ const PaymentPage = () => {
     const searchParams = new URLSearchParams(location.search);
     const { order, loading, error, success } = useSelector(state => state.order);
     const orderId = searchParams.get("order_id");
-
+    const { user } = useSelector(state => state.auth);
     useEffect(() => {
         dispatch(getOrderById(orderId));
     }, [dispatch, orderId]);
@@ -18,9 +20,14 @@ const PaymentPage = () => {
 
     const handlePlaceOrder = (e) => {
         e.preventDefault();
-        dispatch(placeOrder(orderId));
-        navigate('/orders'); 
-        alert("Your order has been placed successfully! Payment will be made on delivery.");
+        dispatch(placeOrder(orderId)).then(() => {
+            dispatch(getOrderHistory(user._id)).then(() => {
+                navigate('/orders').then(() => {
+                    toast.success("Your order has been placed successfully! Payment will be made on delivery.", { position: 'top-center', autoClose: 2000 })
+                })
+            })
+        })
+
     };
 
     return (

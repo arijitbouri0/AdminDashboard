@@ -24,7 +24,6 @@ export const findProducts = (params = {}) => async (dispatch) => {
 export const findProductsById = (reqData) => async (dispatch) => {
     dispatch({ type: FIND_PRODUCT_BY_ID_REQUEST });
     const {productId}=reqData;
-    // console.log(productId);
     try {
         const { data } = await api.get(`/api/products/id/${productId}`)
         dispatch({ type: FIND_PRODUCT_BY_ID_SUCCESS, payload: data });

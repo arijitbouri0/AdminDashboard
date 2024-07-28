@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { RadioGroup, Dialog } from '@headlessui/react';
-import NavBar from '../NavBar';
-import Footer from '../Footer';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { findProductsById } from '../../Redux/Product/Action';
 import { MoonLoader } from 'react-spinners';
 import {addItemToCart} from '../../Redux/Cart/Action'
+import {toast, ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -45,7 +45,7 @@ const ProductDetails = () => {
     }
   }, [product]);
 
-  if (loading) return <div className="flex justify-center items-center h-full">
+  if (loading) return <div className="flex justify-center items-center h-full py-28">
     <MoonLoader />
   </div>;
   if (error) return <div>Error: {error}</div>;
@@ -56,6 +56,8 @@ const ProductDetails = () => {
   const handleAddToCart = (event) => {
     event.preventDefault();
     dispatch(addItemToCart({productId:id,size:selectedSize.name}))
+    //   toast.success("Item added to the cart Succesfully",{position:'top-center',autoClose:5000})
+    // })
   };
 
   return (
@@ -245,8 +247,7 @@ const ProductDetails = () => {
           </div>
         </div>
       </Dialog>
-
-      {/* <Footer /> */}
+      <ToastContainer/>
     </>
   );
 };

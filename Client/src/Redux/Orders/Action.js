@@ -1,4 +1,5 @@
 
+import { toast } from 'react-toastify';
 import { api } from '../../Config/apiConfig'
 
 import { CANCEL_ORDER_FAILURE, CANCEL_ORDER_REQUEST, CANCEL_ORDER_SUCCESS, CREATE_ORDER_FAILURE, CREATE_ORDER_REQUEST, CREATE_ORDER_SUCCESS, GET_ORDER_BY_ID_FAILURE, GET_ORDER_BY_ID_REQUEST, GET_ORDER_BY_ID_SUCCESS, GET_ORDER_HISTORY_FAILURE, GET_ORDER_HISTORY_REQUEST, GET_ORDER_HISTORY_SUCCESS, PLACE_ORDER_FAILURE, PLACE_ORDER_REQUEST, PLACE_ORDER_SUCCESS } from "./ActioType";
@@ -15,6 +16,7 @@ export const createOrder = (reqData) => async (dispatch) => {
         dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
     } catch (error) {
         dispatch({ type: CREATE_ORDER_FAILURE, payload: error.message })
+        toast.error(error,{position:'top-center',autoClose:2000});
     }
 }
 
@@ -23,9 +25,9 @@ export const getOrderById = (orderId) => async (dispatch) => {
 
     try {
         const response = await api.get(`/api/orders/${orderId}`);
-        // console.log(response.data);
         const data=response.data;
         dispatch({ type: GET_ORDER_BY_ID_SUCCESS, payload: data });
+        toast.error(error,{position:'top-center',autoClose:2000});
         
     } catch (error) {
         dispatch({ type: GET_ORDER_BY_ID_FAILURE, payload: error.message })
@@ -47,6 +49,7 @@ export const placeOrder = (orderId) => async (dispatch) => {
             type: PLACE_ORDER_FAILURE,
             payload: error.response ? error.response.data.error : error.message,
         });
+        toast.error(error,{position:'top-center',autoClose:2000});
     }
 };
 
@@ -60,6 +63,7 @@ export const getOrderHistory = (userId) => async (dispatch) => {
         dispatch({ type: GET_ORDER_HISTORY_SUCCESS, payload: data });
     } catch (error) {
         dispatch({ type: GET_ORDER_HISTORY_FAILURE, payload: error.message });
+        toast.error(error,{position:'top-center',autoClose:2000});
     }
 };
 export const cancelOrder = (orderId) => async (dispatch) => {
@@ -77,5 +81,6 @@ export const cancelOrder = (orderId) => async (dispatch) => {
             type: CANCEL_ORDER_FAILURE,
             payload: error.response ? error.response.data.error : error.message,
         });
+        toast.error(error,{position:'top-center',autoClose:2000});
     }
 };

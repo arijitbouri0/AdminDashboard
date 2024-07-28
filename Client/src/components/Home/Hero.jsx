@@ -3,8 +3,8 @@ import {NavLink} from 'react-router-dom'
 
 const Hero = () => {
   return (
-    <section>
-      <div className="relative pt-8 bg-gray-50 sm:pt-12 lg:pt-24 xl:pt-32 lg:py-36 xl:py-48">
+    <section className='py-19'>
+      <div className="relative pt-8 bg-gray-50 sm:pt-24 lg:pt-24 xl:pt-32 lg:py-35 xl:py-48">
         <div className="absolute inset-0 hidden lg:block">
           <img
             className="object-cover object-right w-full h-full"

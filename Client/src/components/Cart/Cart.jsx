@@ -1,14 +1,17 @@
 import React, { Fragment, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCart, removeCartItem, updateCartItem } from '../../Redux/Cart/Action';
+import {toast, ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
-const Cart = ({ open, setOpen }) => {
+const Cart = ({ open, setOpen}) => {
   const dispatch = useDispatch();
   const { cart } = useSelector((store) => store.cart);
   const auth =useSelector(state=>state.auth);
+  const navigate=useNavigate();
 
   useEffect(() => {
     
@@ -33,7 +36,25 @@ const Cart = ({ open, setOpen }) => {
     }
   };
 
+  const handleNext=()=>{
+    if(cart?.data?.totalItems>0){
+      setOpen(false)
+      navigate('/checkout/?step=1');
+    }
+    else if(!auth.user){
+      navigate('/');
+      setOpen(false)
+      toast.error("Please Login",{position:'top-center',autoClose:5000});
+    }
+    else{
+      setOpen(false);
+      navigate('/products');
+      toast.info("Please add Items",{position:'top-center',autoClose:5000})
+    }
+  }
+
   return (
+    <>
     <Transition show={open} as={Fragment}>
       <Dialog className="relative z-10" onClose={() => setOpen(false)}>
         <Transition.Child
@@ -142,12 +163,15 @@ const Cart = ({ open, setOpen }) => {
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                       <div className="mt-6">
-                        <NavLink
+                        {/* <NavLink
                           to="/checkout/?step=1"
                           className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                         >
                           Checkout
-                        </NavLink>
+                        </NavLink> */}
+                        <button onClick={handleNext} className="w-full flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
+                          Checkout
+                        </button>
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                         <p>
@@ -171,6 +195,8 @@ const Cart = ({ open, setOpen }) => {
         </div>
       </Dialog>
     </Transition>
+    <ToastContainer/>
+    </>
   );
 };
 

@@ -92,13 +92,6 @@ const Checkout = () => {
                 Back
               </Button>
               <Box sx={{ flex: '1 1 auto' }} />
-              {/* Disable Next button until current step is complete */}
-              {/* <Button
-                onClick={handleNext}
-                disabled={activeStep === steps.length - 1 }// Disable if last step 
-              >
-                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-              </Button> */}
             </Box>
           </React.Fragment>
         )}

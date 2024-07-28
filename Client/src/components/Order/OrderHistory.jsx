@@ -4,6 +4,7 @@ import { getOrderHistory } from '../../Redux/Orders/Action';
 import moment from 'moment';
 import { MoonLoader } from 'react-spinners';
 import { NavLink } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 const OrderHistory = () => {
   const dispatch = useDispatch();
@@ -14,10 +15,10 @@ const OrderHistory = () => {
     if (user?._id) {
       dispatch(getOrderHistory(user._id));
     }
-  }, [dispatch, user]);
+  }, [dispatch, user,orderHistory?.length]);
 
   if (loading) return (
-    <div className="flex justify-center items-center h-full">
+    <div className="flex justify-center items-center h-full py-28">
       <MoonLoader />
     </div>
   );
@@ -66,8 +67,10 @@ const OrderHistory = () => {
             </div>
           </div>
         </NavLink>
-      ))}
+      ))} 
+      <ToastContainer/>
     </div>
+   
   );
 };
 

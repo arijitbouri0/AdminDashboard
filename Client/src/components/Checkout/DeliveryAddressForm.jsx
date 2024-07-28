@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from '../../Redux/Orders/Action';
 import { useNavigate } from 'react-router-dom';
 import {getUser} from '../../Redux/Auth/Action'
+import { ToastContainer } from 'react-toastify';
 
 const DeliveryAddressForm = () => {
   const [selectedAddress, setSelectedAddress] = useState(null);
@@ -122,6 +123,7 @@ const DeliveryAddressForm = () => {
         </div>
         {error && <p className="text-red-500 mt-4">{error}</p>}
       </div>
+      <ToastContainer/>
     </div>
   );
 };
