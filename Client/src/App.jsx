@@ -1,21 +1,23 @@
 import React from 'react'
-import Home from './Pages/Home'
-import { Route, Routes } from 'react-router-dom';
-import Checkout from './components/Checkout/Checkout';
-import ProductDetails from './components/ProductView/ProductDetails';
-import OrderHistory from './components/Order/OrderHistory'
-import NavBar from './components/NavBar';
-import Footer from './components/Footer';
-import OrderDetails from './components/Order/OrderDetails';
-import About from './Pages/About';
-import ContactUs from './Pages/ContactUs';
-import Product from './components/ProductView/Product';
+// import Home from './Pages/Home'
+// import { Route, Routes } from 'react-router-dom';
+// import Checkout from './components/Checkout/Checkout';
+// import ProductDetails from './components/ProductView/ProductDetails';
+// import OrderHistory from './components/Order/OrderHistory'
+// import NavBar from './components/NavBar';
+// import Footer from './components/Footer';
+// import OrderDetails from './components/Order/OrderDetails';
+// import About from './Pages/About';
+// import ContactUs from './Pages/ContactUs';
+// import Product from './components/ProductView/Product';
+import CustomerRouters from './Routers/CustomerRouters';
+import Admin from './Routers/AdminRouters/Admin'
 
 
 const App = () => {
   return (
     <>
-      <NavBar />
+      {/* <NavBar />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/products' element={<Product/>} />
@@ -26,7 +28,9 @@ const App = () => {
         <Route path='/about' element={<About/>}/>
         <Route path='/contact' element={<ContactUs/>}/>
       </Routes>
-      <Footer />
+      <Footer /> */}
+      <Admin/>
+      {/* <CustomerRouters/> */}
     </>
   )
 }
