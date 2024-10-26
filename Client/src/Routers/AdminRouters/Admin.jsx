@@ -7,9 +7,9 @@ import Customers from '../../Admin/Pages/Customers/Customer';
 import AllProducts from '../../Admin/Pages/Products/AllProducts/AllProducts';
 import AddProducts from '../../Admin/Pages/Products/CreateProducts/CreateProducts';
 import NavBar from '../../Admin/Components/NavBar/NavBar';
-import UserDetails from '../../Admin/UserDetails/UserDetails';
+import UserDetails from '../../Admin/Pages/UserDetails/UserDetails';
 
-const Admin = () => {
+const Admin = ({user}) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [scrolled, setScrolled] = useState(false);
 
@@ -24,6 +24,7 @@ const Admin = () => {
     };
   }, []);
 
+
   return (
     <div className="flex h-screen">
       <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
@@ -34,14 +35,15 @@ const Admin = () => {
           className={`sticky top-0 left-0 right-0 z-50 
           ${scrolled ? ' shadow-lg bg-white' : ''} 
              transition-colors duration-300 ease-in-out`}
+             user={user}
         />
         <Routes>
-          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<Dashboard user={user}/>} />
           <Route path="/admin/orders" element={<Orders />} />
           <Route path="/admin/customers" element={<Customers />} />
           <Route path="/admin/products" element={<AllProducts />} />
           <Route path="/admin/add-new" element={<AddProducts />} />
-          <Route path='/admin/user' element={<UserDetails/>}/>
+          <Route path='/admin/user' element={<UserDetails user={user}/>}/>
         </Routes>
       </div>
     </div>
@@ -49,7 +51,4 @@ const Admin = () => {
 };
 
 export default Admin;
-
-
-
 

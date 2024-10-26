@@ -34,7 +34,6 @@ const ProductListing = () => {
     }));
   }, [dispatch, currentPage, selectedCategory, minPrice, maxPrice, selectedSortOption, rowsPerPage]);
 
-  // Update local state with products from the Redux store when products change
   useEffect(() => {
     if (products?.content) {
       setLocalProducts(products.content);
@@ -55,74 +54,82 @@ const ProductListing = () => {
     setCurrentPage(1);  // Reset to first page when rows per page is changed
   };
 
-  const handleDeleteProduct = async(productId) => {
+  const handleDeleteProduct = async (productId) => {
     await dispatch(deleteProduct(productId))
-    .then(()=>{
-      toast.success('Product deleted successfully!');
-      setLocalProducts((prevProducts) => prevProducts.filter((product) => product._id !== productId));
-    })
-    .catch(() => {
-      toast.error('Failed to delete Product.');
-    });
+      .then(() => {
+        toast.success('Product deleted successfully!');
+        setLocalProducts((prevProducts) => prevProducts.filter((product) => product._id !== productId));
+      })
+      .catch(() => {
+        toast.error('Failed to delete Product.');
+      });
   };
 
   return (
-    <div className="p-2 ">
+    <div className="p-2 dark:bg-gray-900">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
         <div className="md:col-span-1 lg:col-span-4 p-4 border-b">
           <h2 className="text-xl text-gray-400 mb-4">Filters</h2>
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5 bg-white border border-stroke rounded-sm shadow-sm'>
-            <div>
-              <label className='block text-sm font-medium text-gray-700'>Sort by:</label>
+          <div className="grid grid-cols-1 gap-4 p-5 bg-white dark:bg-gray-800 border border-stroke rounded-lg shadow-md sm:grid-cols-2 lg:grid-cols-3">
+            {/* Sort By */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Sort by:</label>
               <select
                 value={selectedSortOption}
                 onChange={(e) => setSelectedSortOption(e.target.value)}
-                className='mt-1 block border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+                className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               >
                 <option value="">Select</option>
                 <option value="price_asc">Price (Low to High)</option>
                 <option value="price_desc">Price (High to Low)</option>
               </select>
             </div>
-            <div>
-              <label className='block text-sm font-medium text-gray-700'>Category:</label>
+
+            {/* Category */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Category:</label>
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+                className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               >
                 <option value="all">All</option>
               </select>
             </div>
-            <div>
-              <label className='block text-sm font-medium text-gray-700'>Price Range:</label>
-              <input
-                type="number"
-                value={minPrice}
-                onChange={(e) => setMinPrice(e.target.value)}
-                placeholder="Min Price"
-                className='mt-1 block border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-              />
-              <input
-                type="number"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(e.target.value)}
-                placeholder="Max Price"
-                className='mt-1 block border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-              />
+
+            {/* Price Range */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Price Range:</label>
+              <div className="flex space-x-2">
+                <input
+                  type="number"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(e.target.value)}
+                  placeholder="Min"
+                  className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+                <input
+                  type="number"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(e.target.value)}
+                  placeholder="Max"
+                  className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
             </div>
           </div>
+
         </div>
 
         {/* Export and Add Product Buttons */}
-        <div className="md:col-span-1 lg:col-span-4 p-4 flex justify-between bg-white border border-stroke rounded-sm shadow-sm">
+        <div className="md:col-span-1 lg:col-span-4 p-4 flex justify-between bg-white border border-stroke rounded-sm shadow-sm dark:bg-gray-800 dark:border-gray-700">
           <button className='bg-blue-400 p-2 rounded-md text-white'>Export</button>
           <button className='bg-purple-400 p-2 rounded-md text-white'>
             <NavLink to='/admin/add-new'>+ Add Product</NavLink>
           </button>
         </div>
-        <div className="md:col-span-1 lg:col-span-4 overflow-x-auto bg-white border border-stroke rounded-sm shadow-sm">
+        <div className="md:col-span-1 lg:col-span-4 overflow-x-auto bg-white border border-stroke rounded-sm shadow-sm ">
           {loading ? (
             <Loader />
           ) : (

@@ -5,7 +5,7 @@ import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const Button = ({ setFilterOption, setStartDate, setEndDate }) => {
+const Button = ({ setFilterOption, setStartDate, setEndDate,darkMode }) => {
   const [dateFilter, setDateFilter] = useState("full-time");
   const [localFilterOption, setLocalFilterOption] = useState('day');
   const [localStartDate, setLocalStartDate] = useState(new Date());
@@ -48,11 +48,12 @@ const Button = ({ setFilterOption, setStartDate, setEndDate }) => {
             )}
 
             <button
-              className="mt-4 bg-blue-500 text-white py-2 px-4 rounded"
+              className={`mt-4 py-2 px-4 rounded ${darkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white'}`}
               onClick={handleApplyFilter}
             >
               Apply
             </button>
+
           </div>
         )}
       </div>
@@ -61,3 +62,5 @@ const Button = ({ setFilterOption, setStartDate, setEndDate }) => {
 };
 
 export default Button;
+
+

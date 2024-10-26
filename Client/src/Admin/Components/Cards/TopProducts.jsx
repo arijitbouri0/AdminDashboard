@@ -1,36 +1,48 @@
-import React from 'react';
-
-// Sample data for top products
-const topProducts = [
-  { name: 'Product A', quantitySold: 150, revenue: 1200 },
-  { name: 'Product B', quantitySold: 120, revenue: 950 },
-  { name: 'Product C', quantitySold: 100, revenue: 800 },
-  { name: 'Product D', quantitySold: 80, revenue: 600 },
-  { name: 'Product E', quantitySold: 70, revenue: 550 },
-];
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTopProducts } from '../../../Redux/Product/Action';
 
 const TopProducts = () => {
+  const dispatch = useDispatch();
+
+  const { topProducts, loading, error } = useSelector((state) => state.product);
+
+  useEffect(() => {
+    dispatch(fetchTopProducts());
+  },[dispatch])
   return (
     <>
-      <h2 className="text-2xl font-bold mb-4">Top Products</h2>
+      <h2 className="text-2xl font-bold mb-4 w-full">Top Products</h2>
+      <div className='overflow-x-auto'>
       <table className="w-full border-collapse rounded-lg">
         <thead>
-          <tr className="bg-purple-950 rounded-lg text-white text-center border-b">
-            <th className="p-2 ">Product Name</th>
-            <th className="p-2">Quantity Sold</th>
-            <th className="p-2">Revenue</th>
+          <tr className="bg-purple-950 rounded-lg text-white text-left border-b">
+            <th className="p-2 sm font-medium">Product</th>
+            <th className="p-2 sm font-medium">Quantity Sold</th>
+            <th className="p-2 sm font-medium">Revenue</th>
           </tr>
         </thead>
         <tbody>
-          {topProducts.map((product, index) => (
-            <tr key={index} className="text-center hover:bg-purple-950 hover:text-white">
-              <td className="p-2">{product.name}</td>
-              <td className="p-2">{product.quantitySold}</td>
-              <td className="p-2">${product.revenue.toLocaleString()}</td>
+          {topProducts?.map((product, index) => (
+            <tr key={index} className="text-left hover:bg-purple-950 hover:text-white">
+              <td className="p-2 flex items-center space-x-3">
+                <img
+                  src={product?.imageUrl} 
+                  alt={product?.name}
+                  className="w-10 h-10 rounded-full object-cover mx-auto" 
+                />
+                <div className="flex flex-col w-80">
+                  <p className="font-semibold text-sm">{product.title}</p>
+                  <p className="text-xs text-gray-500">{product.description}</p>
+                </div>
+              </td>
+              <td className="p-2 text-center">{50 - product.quantity}</td>
+              <td className="p-2">{(50-product.quantity)*product.price}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      </div>
     </>
   );
 };

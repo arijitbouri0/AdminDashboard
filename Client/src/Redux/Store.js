@@ -6,6 +6,7 @@ import { cartReducer } from './Cart/Reducer';
 import { orderReducer } from './Orders/Reducer';
 import adminOrderReducer from './Admin/Orders/Reducer';
 import revenueReducer from './Admin/Matrix/Reducer';
+import notificationReducer from './Admin/Notification/Reducer';
 
 const rootReducers = combineReducers({
     auth: authReducer,
@@ -14,6 +15,7 @@ const rootReducers = combineReducers({
     order: orderReducer,
     adminOrder:adminOrderReducer,
     revenue:revenueReducer,
+    notification:notificationReducer,
 });
 
 export const store = createStore(rootReducers, applyMiddleware(thunk));

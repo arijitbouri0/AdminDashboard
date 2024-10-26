@@ -30,7 +30,7 @@ const List = ({ props, onDelete }) => {
 
   return (
     <div className="overflow-x-auto">
-      <table className="w-full border-collapse border bg-white">
+      <table className="w-full border-collapse border bg-white dark:bg-gray-800 dark:border-gray-700">
         <thead>
           <tr className="text-left bg-gray-100">
             <th className="p-4 text-sm font-medium">PRODUCT</th>
@@ -42,7 +42,7 @@ const List = ({ props, onDelete }) => {
         </thead>
         <tbody>
           {props.map((product) => (
-            <tr key={product._id} className="border-b hover:bg-gray-50">
+            <tr key={product._id} className="text-center border-b hover:bg-gray-50">
               <td className="p-4 flex items-center space-x-3">
                 <img
                   src={product.imageUrl}

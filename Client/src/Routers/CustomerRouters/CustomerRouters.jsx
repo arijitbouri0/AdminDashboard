@@ -1,15 +1,15 @@
 import React from 'react'
 import { Routes,Route } from 'react-router-dom'
-import Home from '../Customer/Pages/Home'
-import Footer from '../Customer/components/Footer'
-import Product from '../Customer/components/ProductView/Product'
-import ProductDetails from '../Customer/components/ProductView/ProductDetails'
-import Checkout from '../Customer/components/Checkout/Checkout'
-import OrderHistory from '../Customer/components/Order/OrderHistory'
-import OrderDetails from '../Customer/components/Order/OrderDetails'
-import AboutPage from '../Customer/Pages/About'
-import ContactForm from '../Customer/Pages/ContactUs'
-import NavBar from '../Customer/components/NavBar'
+import Home from '../../Customer/Pages/Home'
+import Footer from '../../Customer/components/Footer'
+import Product from '../../Customer/components/ProductView/Product'
+import ProductDetails from '../../Customer/components/ProductView/ProductDetails'
+import Checkout from '../../Customer/components/Checkout/Checkout'
+import OrderHistory from '../../Customer/components/Order/OrderHistory'
+import OrderDetails from '../../Customer/components/Order/OrderDetails'
+import AboutPage from '../../Customer/Pages/About'
+import ContactForm from '../../Customer/Pages/ContactUs'
+import NavBar from '../../Customer/components/NavBar'
 
 const CustomerRouters = () => {
   return (
@@ -31,3 +31,6 @@ const CustomerRouters = () => {
 }
 
 export default CustomerRouters
+
+
+

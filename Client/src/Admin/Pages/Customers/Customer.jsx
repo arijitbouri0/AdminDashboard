@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UserModel from "./../../Components/Modal/UserModel"
+import CustomerDeleteModal from './../../Components/Alert/CustomerDeleteModal'
 
 
 const Customer = () => {
@@ -53,15 +54,27 @@ const Customer = () => {
     setCurrentPage(1);
   };
 
-  const onDelete = async (userId) => {
-    await dispatch(deleteUser(userId))
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); 
+  const [selectedCustomerId, setSelectedCustomerId] = useState(null);
+
+  const handleOpenModal = (userId) => {
+    setSelectedCustomerId(userId);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async() => {
+    if (selectedCustomerId) {
+      await dispatch(deleteUser(selectedCustomerId))
       .then(() => {
         toast.success('User deleted successfully!');
         dispatch(getAllUsers());
       })
-      .catch(() => {
+      .catch((err) => {
         toast.error('Failed to delete User.');
-      });
+      }); 
+    }
+    setIsDeleteModalOpen(false); 
   };
 
   useEffect(() => {
@@ -69,16 +82,16 @@ const Customer = () => {
   }, [dispatch,isModalOpen]);
 
   return (
-    <div className="p-4">
+    <div className="p-4 dark:bg-gray-900">
       <h2 className="text-2xl font-bold mb-4">Total Users</h2>
-      <div className='mt-2 bg-white border border-stroke rounded-sm shadow-sm p-3'>
+      <div className='mt-2 bg-white border border-stroke rounded-sm shadow-sm p-3 dark:bg-gray-800 dark:border-gray-700'>
         <div className="mb-4">
           <input
             type="text"
             placeholder="Search User.."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="border p-2 rounded w-full"
+            className="border p-2 rounded w-full dark:bg-gray-800 dark:border-gray-700"
           />
         </div>
         <div className="grid grid-cols-1 gap-4 overflow-x-auto">
@@ -126,7 +139,7 @@ const Customer = () => {
                       </button>
 
                       <button
-                        onClick={() => onDelete(user._id)}
+                        onClick={() =>handleOpenModal(user._id)}
                         className="flex items-center justify-center p-3 text-gray-500 hover:text-gray-700 text-lg rounded-md border border-transparent relative group"
                       >
                         <FontAwesomeIcon icon={faTrash} />
@@ -154,6 +167,11 @@ const Customer = () => {
       {isModalOpen && (
         <UserModel toggleModal={toggleModal} user={selectedUser} />
       )}
+      <CustomerDeleteModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+      />
       <ToastContainer />
     </div>
   );

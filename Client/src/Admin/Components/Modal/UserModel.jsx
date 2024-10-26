@@ -52,7 +52,7 @@ const UserModel = ({ toggleModal, user }) => {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
       aria-hidden="true"
     >
-      <div className="relative p-4 w-full max-w-md max-h-full">
+      <div className="relative p-4 w-full max-w-md h-auto max-h-[80vh] overflow-y-auto">
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">

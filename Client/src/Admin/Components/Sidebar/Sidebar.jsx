@@ -11,12 +11,15 @@ import {
 } from '@iconscout/react-unicons';
 import SideBarItems from "./SidebarItem/SideBarItems";
 import { NavLink } from "react-router-dom";
+import {logout} from "./../../../Redux/Auth/Action" 
+import { useDispatch } from 'react-redux';
+
 
 export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
   const [isProductsOpen, setIsProductsOpen] = useState(false);
 
   const menuItems = [
-    { icon: <UilDashboard />, label: 'Dashboard', path: '/admin/dashboard' },
+    { icon: <UilDashboard />, label: 'Dashboard', path: '/' },
     { icon: <UilClipboardAlt />, label: 'Orders', path: '/admin/orders' },
     { icon: <UilUsersAlt />, label: 'Customers', path: '/admin/customers' },
   ];
@@ -24,6 +27,14 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
   const toggleProductsAccordion = () => {
     setIsProductsOpen(!isProductsOpen);
   };
+
+  const dispatch=useDispatch();
+
+  const handleLogout=()=>{
+    dispatch(logout());
+    localStorage.clear();
+    window.location.reload();
+  }
 
   return (
     <>
@@ -97,7 +108,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
             <UilSignOutAlt className="text-white text-2xl " />
             {isSidebarOpen && (
               <div className="ml">
-                <span className="text-white cursor-pointer">Sign Out</span>
+                <span onClick={handleLogout}className="text-white cursor-pointer">Sign Out</span>
               </div>
             )}
           </div>

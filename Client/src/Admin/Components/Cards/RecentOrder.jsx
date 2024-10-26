@@ -29,7 +29,7 @@ const RecentOrders = () => {
         (<Loader />)
         :
         (
-          <div className="overflow-x-auto">
+          <div className="grid grid-cols-1 gap-4 overflow-x-auto">
             <table className="w-full border-collapse border border-gray-200">
               <thead>
                 <tr className="bg-gray-100 text-left">
@@ -95,3 +95,6 @@ const RecentOrders = () => {
 };
 
 export default RecentOrders;
+
+
+

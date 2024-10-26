@@ -9,6 +9,7 @@ import {
 } from '@iconscout/react-unicons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import OrderDeleteModal from "../../Components/Alert/OrderDeleteModal";
 
 const Order = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,30 @@ const Order = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
+
+
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
+
+  const handleOpenModal = (orderId) => {
+    setSelectedOrderId(orderId);
+    setIsModalOpen(true);
+  };
+
+
+  const handleConfirmDelete = async() => {
+    if (selectedOrderId) {
+      await dispatch(deleteOrder(selectedOrderId))
+      .then(() => {
+        toast.success('Order deleted successfully!');
+        dispatch(getOrders());
+      })
+      .catch((err) => {
+        toast.error('Failed to delete order.');
+      }); 
+    }
+    setIsModalOpen(false); 
+  };
 
   const filteredOrders = orders.filter(order => {
     const orderId = order._id.toLowerCase();
@@ -93,92 +118,81 @@ const Order = () => {
     }
   };
 
-
-  const handleDeleteOrder = async(orderId) => {
-   await dispatch(deleteOrder(orderId))
-      .then(() => {
-        toast.success('Order deleted successfully!');
-        dispatch(getOrders());
-      })
-      .catch((err) => {
-        toast.error('Failed to delete order.');
-      });
-  }
   useEffect(() => {
     dispatch(getOrders());
   }, [dispatch]);
 
   
   return (
-    <div className="p-4">
+    <div className="p-4 dark:bg-gray-900">
       <h2 className="text-2xl font-bold mb-4">Orders Preview</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white border border-stroke rounded-sm shadow-sm px-7 py-6 relative">
-          <div className="flex h-11 w-11 items-center mt-4 bg-blue-50 justify-center mb-3 rounded-full">
-            <UilClipboardAlt className="text-blue-700" size={24} />
+        <div className="bg-white dark:bg-gray-800 border border-stroke rounded-sm shadow-sm px-7 py-6 relative">
+          <div className="flex h-11 w-11 items-center mt-4 bg-blue-50 dark:bg-blue-900 justify-center mb-3 rounded-full">
+            <UilClipboardAlt className="text-blue-700 dark:text-blue-300" size={24} />
           </div>
           <div className="mt-4 flex items-end justify-between">
             <div>
-              <h4 className="text-title-md text-4xl  font-bold text-black ">
+              <h4 className="text-title-md text-4xl dark:text-white font-bold text-black ">
                 {orders.length}
               </h4>
-              <span className="text-sm font-medium text-slate-400">Total Orders</span>
+              <span className="text-sm font-medium dark:text-white text-slate-400">Total Orders</span>
             </div>
           </div>
         </div>
-        <div className="bg-white border border-stroke rounded-sm shadow-sm px-7 py-6 relative">
-          <div className="flex h-11 w-11 items-center mt-4 bg-blue-50 justify-center mb-3 rounded-full">
-            <FaClock className="text-blue-700" size={24} />
+        <div className="bg-white dark:bg-gray-800 border border-stroke rounded-sm shadow-sm px-7 py-6 relative">
+          <div className="flex h-11 w-11 items-center mt-4 bg-blue-50 dark:bg-blue-900 justify-center mb-3 rounded-full">
+            <FaClock className="text-blue-700 dark:text-blue-300" size={24} />
           </div>
           <div className="mt-4 flex items-end justify-between">
             <div>
-              <h4 className="text-title-md text-4xl  font-bold text-black ">
+              <h4 className="text-title-md text-4xl  font-bold text-black dark:text-white">
                 {pendings}
               </h4>
-              <span className="text-sm font-medium text-slate-400">Orders Pending</span>
+              <span className="text-sm font-medium text-slate-400 dark:text-white">Orders Pending</span>
             </div>
           </div>
         </div>
-        <div className="bg-white border border-stroke rounded-sm shadow-sm px-7 py-6 relative">
-          <div className="flex h-11 w-11 items-center mt-4 bg-blue-50 justify-center mb-3 rounded-full">
-            <FaTruck className="text-blue-700" size={24} />
+        <div className="bg-white dark:bg-gray-800 border border-stroke rounded-sm shadow-sm px-7 py-6 relative">
+          <div className="flex h-11 w-11 items-center mt-4 bg-blue-50 dark:bg-blue-900 justify-center mb-3 rounded-full">
+            <FaTruck className="text-blue-700 dark:text-blue-300" size={24} />
           </div>
           <div className="mt-4 flex items-end justify-between">
             <div>
-              <h4 className="text-title-md text-4xl  font-bold text-black ">
+              <h4 className="text-title-md text-4xl dark:text-white font-bold text-black ">
                 {delivered}
               </h4>
-              <span className="text-sm font-medium text-slate-400">Orders Delivered</span>
+              <span className="text-sm font-medium dark:text-white text-slate-400">Orders Delivered</span>
             </div>
           </div>
         </div>
-        <div className="bg-white border border-stroke rounded-sm shadow-sm px-7 py-6 relative">
-          <div className="flex h-11 w-11 items-center mt-4 bg-blue-50 justify-center mb-3 rounded-full">
-            <FaMoneyBillWave className="text-blue-700" size={24} />
+        <div className="bg-white dark:bg-gray-800 border border-stroke rounded-sm shadow-sm px-7 py-6 relative">
+          <div className="flex h-11 w-11 items-center mt-4 bg-blue-50 dark:bg-blue-900 justify-center mb-3 rounded-full">
+            <FaMoneyBillWave className="text-blue-700 dark:text-blue-300" size={24} />
           </div>
           <div className="mt-4 flex items-end justify-between">
             <div>
-              <h4 className="text-title-md text-4xl  font-bold text-black ">
+              <h4 className="text-title-md text-4xl dark:text-white font-bold text-black ">
                 {payments}
               </h4>
-              <span className="text-sm font-medium text-slate-400">Payments Pending</span>
+              <span className="text-sm font-medium dark:text-white text-slate-400">Payments Pending</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="mt-2 bg-white border border-stroke rounded-sm shadow-sm p-3">
+      <div className="mt-2 bg-white border border-stroke rounded-sm shadow-sm p-3 dark:bg-gray-800 dark:border-gray-700">
         <div className="mb-4 ">
           <input
             type="text"
             placeholder="Search by order ID or customer name"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="border p-2 rounded w-full"
+            className="border p-2 rounded w-full dark:bg-gray-800 dark:border-gray-700"
           />
         </div>
-        <div className="grid grid-cols-1 gap-4  overflow-x-auto">
+        <div className="grid grid-cols-1 gap-4  overflow-x-auto ">
           {loading ? (
             <Loader />
           ) : (
@@ -196,7 +210,7 @@ const Order = () => {
               </thead>
               <tbody>
                 {currentOrders?.map((order, index) => (
-                  <tr key={index} className="border-b">
+                  <tr key={index} className="border-b hover:bg-gray-50">
                     <td className="p-3 text-blue-600">{order._id}</td>
                     <td className="p-3">{order.orderDate}</td>
                     <td className="p-3">{`${order.user?.firstname} ${order.user?.lastname}`}</td>
@@ -215,7 +229,7 @@ const Order = () => {
                     <td className="p-3">{order.totalPrice}</td>
                     <td className="p-3">
                       <button
-                        onClick={(e) => handleDeleteOrder(order._id)}
+                        onClick={(e) => handleOpenModal(order._id)}
                         className="text-red-600 hover:text-red-800 relative group"
                       >
                         <FaTrashAlt />
@@ -230,7 +244,6 @@ const Order = () => {
               </tbody>
             </table>
           )}
-
         </div>
         <Pagination
           currentPage={currentPage}
@@ -240,11 +253,19 @@ const Order = () => {
           handlePageChange={handlePageChange}
           handleRowsPerPageChange={handleRowsPerPageChange}
         />
-
       </div>
+      <OrderDeleteModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+      />
       <ToastContainer />
     </div>
   );
 };
 
 export default Order;
+
+
+
+

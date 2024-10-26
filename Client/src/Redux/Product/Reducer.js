@@ -14,7 +14,10 @@ import {
     DELETE_PRODUCT_REQUEST,
     EDIT_PRODUCT_REQUEST,
     EDIT_PRODUCT_FAILURE,
-    EDIT_PRODUCT_SUCCESS
+    EDIT_PRODUCT_SUCCESS,
+    FETCH_TOP_PRODUCTS_REQUEST,
+    FETCH_TOP_PRODUCTS_FAILURE,
+    FETCH_TOP_PRODUCTS_SUCCESS
 } from './ActionType';
 
 const initialState = {
@@ -23,6 +26,7 @@ const initialState = {
     loading: false,
     error: null,
     deleteProduct: null,
+    topProducts: [],
 };
 
 export const customerProductReducer = (state = initialState, action) => {
@@ -32,6 +36,7 @@ export const customerProductReducer = (state = initialState, action) => {
         case ADD_PRODUCT_REQUEST:
         case DELETE_PRODUCT_REQUEST:
         case EDIT_PRODUCT_REQUEST:
+        case FETCH_TOP_PRODUCTS_REQUEST:
             return { ...state, loading: true, error: null };
 
         case FIND_PRODUCT_SUCCESS:
@@ -49,11 +54,19 @@ export const customerProductReducer = (state = initialState, action) => {
                 isLoading: false,
                 product: action.payload,
             }
+        case FETCH_TOP_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                topProducts: action.payload, // Store top products in state
+            };
         case FIND_PRODUCT_FAILURE:
         case FIND_PRODUCT_BY_ID_FAILURE:
         case ADD_PRODUCT_FAILURE:
         case DELETE_PRODUCT_FAILURE:
         case EDIT_PRODUCT_FAILURE:
+        case FETCH_TOP_PRODUCTS_FAILURE:
             return { ...state, loading: false, error: action.payload };
 
         default:

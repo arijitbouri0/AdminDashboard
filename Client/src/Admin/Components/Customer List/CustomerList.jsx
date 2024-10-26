@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'; // Importing Font Awesome icons
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'; 
 
 const List = ({ props}) => {
   return (
@@ -19,11 +19,6 @@ const List = ({ props}) => {
           {props.map((user) => (
             <tr key={user._id} className="border-b hover:bg-gray-50">
               <td className="p-4 flex items-center space-x-3">
-                {/* <img
-                  src={user.imageUrl}
-                  alt={user.title}
-                  className="w-10 h-10 rounded-full"
-                /> */}
                 <div className="flex flex-col w-80">
                   <p className="font-semibold text-sm">{`${user.firstname} ${user.lastname}`}</p>
                   <p className="text-xs text-gray-500">{user.email}</p>

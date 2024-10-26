@@ -25,3 +25,27 @@ body{
     border-bottom: 1px solid rgb(199, 51, 232);
     font-weight: bold; /* Optional: Make active link bold */
 }
+
+#chartjs-tooltip {
+    opacity: 1;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 3px;
+    pointer-events: none;
+    -webkit-transition: all .1s ease;
+    transition: all .1s ease;
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+    z-index: 1000;
+  }
+  
+  #chartjs-tooltip table {
+    margin: 0;
+    border-collapse: collapse;
+  }
+  
+  #chartjs-tooltip th, #chartjs-tooltip td {
+    padding: 4px 8px;
+    border: none;
+  }
+  

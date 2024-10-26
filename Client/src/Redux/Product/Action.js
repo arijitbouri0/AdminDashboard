@@ -9,6 +9,9 @@ import {
     EDIT_PRODUCT_FAILURE,
     EDIT_PRODUCT_REQUEST,
     EDIT_PRODUCT_SUCCESS,
+    FETCH_TOP_PRODUCTS_FAILURE,
+    FETCH_TOP_PRODUCTS_REQUEST,
+    FETCH_TOP_PRODUCTS_SUCCESS,
     FIND_PRODUCT_BY_ID_FAILURE,
     FIND_PRODUCT_BY_ID_REQUEST,
     FIND_PRODUCT_BY_ID_SUCCESS,
@@ -30,7 +33,6 @@ export const findProducts = (params = {}) => async (dispatch) => {
     }
 };
 
-
 export const findProductsById = (reqData) => async (dispatch) => {
     dispatch({ type: FIND_PRODUCT_BY_ID_REQUEST });
     const {productId}=reqData;
@@ -44,7 +46,7 @@ export const findProductsById = (reqData) => async (dispatch) => {
 
 export const addProduct = (productData) => async (dispatch) => {
     dispatch({ type: ADD_PRODUCT_REQUEST });
-  console.log(productData);
+   console.log(productData);
     try {
       const { data } = await api.post('/api/admin/products/', productData);
       dispatch({ type: ADD_PRODUCT_SUCCESS, payload: data });
@@ -79,4 +81,17 @@ export const addProduct = (productData) => async (dispatch) => {
     } catch (error) {
         dispatch({ type: EDIT_PRODUCT_FAILURE, payload: error.message });
     }
+};
+
+export const fetchTopProducts = () => {
+  return async (dispatch) => {
+    dispatch({ type: FETCH_TOP_PRODUCTS_REQUEST });
+    
+    try {
+      const response = await api.get('/api/admin/products/top');
+      dispatch({ type: FETCH_TOP_PRODUCTS_SUCCESS, payload: response.data });
+    } catch (error) {
+      dispatch({ type: FETCH_TOP_PRODUCTS_FAILURE, payload: error.message });
+    }
+  };
 };
