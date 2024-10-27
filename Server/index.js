@@ -20,11 +20,25 @@ connectToMongoDB(process.env.url).then(() =>
 app.use(express.json());
 
 // Middleware for API connect with frontend
+const allowedOrigins = [
+    'https://admin-dashboard-serve.vercel.app',  // Your frontend URL
+    // Add other allowed origins if needed
+];
+
 app.use(cors({
-    origin: '*', // allow all origins for testing
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) {
+            const message = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(message), false);
+        }
+        return callback(null, true);
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-    credentials: true,
+    credentials: true, // allow cookies to be sent with requests if needed
 }));
+
 
 
 
