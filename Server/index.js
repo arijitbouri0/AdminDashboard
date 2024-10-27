@@ -20,12 +20,11 @@ connectToMongoDB(process.env.url).then(() =>
 app.use(express.json());
 
 // Middleware for API connect with frontend
-const corsOptions = {
-  origin: 'https://admin-dashboard-client-kappa.vercel.app/', // Only allow requests from your frontend URL
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Define allowed methods
-  credentials: true, // Enable credentials if needed
-};
-app.use(cors(corsOptions));
+app.use(cors({
+    origin: 'https://admin-dashboard-client-kappa.vercel.app', // allow your client origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH'], // specify allowed methods
+    credentials: true // allow cookies to be sent with requests if needed
+}));
 
 
 app.use("/auth", authRouters);
