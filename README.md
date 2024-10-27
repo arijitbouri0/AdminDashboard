@@ -1,6 +1,27 @@
+
 # AdminDashboard - mernEcommerce
 
+
 This is an Admin Dashboard application built using the MERN (MongoDB, Express, React, Node.js) stack. The dashboard provides a comprehensive interface for managing products, viewing analytics, and monitoring user activity.
+
+
+## Demo
+Live Link:
+https://admin-dashboard-serve.vercel.app/
+
+## Screenshots
+
+### Authorization
+![Authorization Screenshot](https://raw.githubusercontent.com/arijitbouri0/AdminDashboard/main/Client/public/Screenshot%202024-10-27%20125529.png)
+
+### Dashboard
+![Dashboard Screenshot](https://raw.githubusercontent.com/arijitbouri0/AdminDashboard/main/Client/public/Screenshot%202024-10-27%20125610.png)
+
+### Orders Preview
+![Orders Preview Screenshot](https://raw.githubusercontent.com/arijitbouri0/AdminDashboard/main/Client/public/Screenshot%202024-10-27%20132132.png)
+
+### Profile
+![Profile Screenshot](https://raw.githubusercontent.com/arijitbouri0/AdminDashboard/main/Client/public/Screenshot%202024-10-27%20132200.png)
 
 ## Features
 
@@ -11,67 +32,51 @@ This is an Admin Dashboard application built using the MERN (MongoDB, Express, R
 - Notifications system for user actions
 - Secure backend with JWT authentication
 
+
 ## Tech Stack
 
 - **MongoDB**: NoSQL database to store product and user data.
 - **Express.js**: Web framework for building RESTful APIs.
 - **React.js**: Frontend library for building user interfaces.
 - **Node.js**: JavaScript runtime for the server-side application.
-- **Chart.js**: for Graphs 
+- **Chart.js**: Graphs are used for data analysis .
+- **TailWindcss:** Styling the component
 
-## Installation
 
-### Prerequisites
+## Run Locally
 
-- Node.js
-- MongoDB
-
-### Steps
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/arijitbouri0/AdminDashboard.git
-Navigate to the server directory:
+Clone the project
 
 ```bash
-   Copy code
-cd admin-dashboard/server
-Install the server dependencies:
+  git clone https://github.com/arijitbouri0/AdminDashboard.git
 
-bash
-Copy code
-npm install
-Set up your MongoDB database and update the connection string in the config.js file.
+```
 
-Start the server:
+Go to the project directory
 
-bash
-Copy code
-npm start
-Navigate to the client directory:
+```bash
+  cd AdminDashboard
+```
 
-bash
-Copy code
-cd ../client
-Install the client dependencies:
+Install dependencies
 
-bash
-Copy code
-npm install
-Start the client:
+```bash
+  npm install
+```
 
-bash
-Copy code
-npm start
-Usage
-After starting the server and client, navigate to http://localhost:5172 in your browser. You can log in with your admin credentials and manage your products and users.
+Start the server
 
-Product Images
-Here are some product images showcased in the dashboard:
+```bash
+  npm run dev
+```
 
 
-Contributing
-Feel free to contribute to the project. You can submit issues or create a pull request for enhancements and bug fixes.
+## License
 
-License
-This project is licensed under the MIT License.
+[MIT](https://choosealicense.com/licenses/mit/)
+
+
+## Support
+
+For support, email arijitbouri0@gmail.com .
+
