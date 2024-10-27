@@ -1,8 +1,7 @@
 import axios from "axios";
 
-// export const API_BASE_URL= 'https://mernecommercebacend-1.onrender.com';
 
-export const API_BASE_URL= 'http://localhost:8001'
+export const API_BASE_URL= 'https://admin-dashboard-jade-pi-27.vercel.app/'
 
 const jwt=localStorage.getItem("jwt");
 
