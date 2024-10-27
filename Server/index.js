@@ -21,10 +21,11 @@ app.use(express.json());
 
 // Middleware for API connect with frontend
 app.use(cors({
-    origin: 'https://admin-dashboard-client-kappa.vercel.app', // allow your client origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH'], // specify allowed methods
-    credentials: true // allow cookies to be sent with requests if needed
+    origin: '*', // allow all origins for testing
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    credentials: true,
 }));
+
 
 
 app.use("/auth", authRouters);
