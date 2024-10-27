@@ -20,7 +20,12 @@ connectToMongoDB(process.env.url).then(() =>
 app.use(express.json());
 
 // Middleware for API connect with frontend
-app.use(cors());
+const corsOptions = {
+  origin: 'https://admin-dashboard-frontend-delta.vercel.app', // Only allow requests from your frontend URL
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Define allowed methods
+  credentials: true, // Enable credentials if needed
+};
+app.use(cors(corsOptions));
 
 
 app.use("/auth", authRouters);
