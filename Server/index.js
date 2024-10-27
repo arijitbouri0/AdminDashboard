@@ -21,7 +21,7 @@ app.use(express.json());
 
 // Middleware for API connect with frontend
 const corsOptions = {
-  origin: 'https://admin-dashboard-frontend-delta.vercel.app', // Only allow requests from your frontend URL
+  origin: 'https://admin-dashboard-client-kappa.vercel.app/', // Only allow requests from your frontend URL
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Define allowed methods
   credentials: true, // Enable credentials if needed
 };
