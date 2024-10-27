@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-export const API_BASE_URL= 'https://admin-dashboard-jade-pi-27.vercel.app/'
+export const API_BASE_URL= 'https://admin-dashboard-server-seven.vercel.app/'
 
 const jwt=localStorage.getItem("jwt");
 
