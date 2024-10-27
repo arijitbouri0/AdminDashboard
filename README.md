@@ -33,8 +33,8 @@ This is an Admin Dashboard application built using the MERN (MongoDB, Express, R
    git clone https://github.com/arijitbouri0/AdminDashboard.git
 Navigate to the server directory:
 
-bash
-Copy code
+```bash
+   Copy code
 cd admin-dashboard/server
 Install the server dependencies:
 
